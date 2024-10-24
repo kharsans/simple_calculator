@@ -1,58 +1,61 @@
 import pytest
-from calculator.py import squareNums, triNums, lazyCaterer, magicSquares, calculatehypotenuse, volumeOfSphere, celsiusToFahrenheit
+import math
+from src.calculator import calculator as calc
 
 @pytest.mark.parametrize("n, expected", [
-    (1, 1),
-    (2, 4),
-    (3, 9)
+    pytest.param(1, 1, id='n=1'),
+    pytest.param(2, 4, id='n=2'),
+    pytest.param(3, 9, id='n=3')
 ])
 def test_squareNums(n, expected):
-    assert squareNums(n) == expected
+    assert calc.squareNums(n) == expected
 
 @pytest.mark.parametrize("n, expected", [
-    (1, 1),
-    (2, 3),
-    (3, 6)
+    pytest.param(1, 1, id='n=1'),
+    pytest.param(2, 3, id='n=2'),
+    pytest.param(3, 6, id='n=3')
 ])
 def test_triNums(n, expected):
-    assert triNums(n) == expected
+    assert calc.triNums(n) == expected
 
 @pytest.mark.parametrize("n, expected", [
-    (1, 2),
-    (2, 4),
-    (3, 7)
+    pytest.param(1, 2, id='n=1'),
+    pytest.param(2, 4, id='n=2'),
+    pytest.param(3, 7, id='n=3')
 ])
 def test_lazyCaterer(n, expected):
-    assert lazyCaterer(n) == expected
+    assert calc.lazyCaterer(n) == expected
 
 @pytest.mark.parametrize("n, expected", [
-    (1, 1),
-    (2, 5),
-    (3, 15)
+    pytest.param(1, 1, id='n=1'),
+    pytest.param(2, 5, id='n=2'),
+    pytest.param(3, 15, id='n=3')
 ])
 def test_magicSquares(n, expected):
-    assert magicSquares(n) == expected
+    assert calc.magicSquares(n) == expected
 
 @pytest.mark.parametrize("a, b, expected", [
-    (3, 4, 5),
-    (5, 12, 13),
-    (8, 15, 17)
+    pytest.param(3, 4, 5, id='3-4-5 triangle'),
+    pytest.param(5, 12, 13, id='5-12-13 triangle'),
+    pytest.param(8, 15, 17, id='8-15-17 triangle')
 ])
 def test_calculatehypotenuse(a, b, expected):
-    assert pytest.approx(calculatehypotenuse(a, b)) == expected
+    assert calc.calculatehypotenuse(a, b) == expected
 
 @pytest.mark.parametrize("radius, expected", [
-    (1, 4.1887902047863905),
-    (2, 33.510321638291124),
-    (3, 113.09733552923255)
+    pytest.param(1, 4.1887902047863905, id='radius=1'),
+    pytest.param(2, 33.510321638291124, id='radius=2'),
+    pytest.param(3, 113.09733552923255, id='radius=3')
 ])
 def test_volumeOfSphere(radius, expected):
-    assert pytest.approx(volumeOfSphere(radius)) == expected
+    tolerance = 0.000001  
+    result = calc.volumeOfSphere(radius)
+    assert abs(result - expected) <= tolerance
 
 @pytest.mark.parametrize("celsius, expected", [
-    (0, 32),
-    (100, 212),
-    (-40, -40)
+    pytest.param(0, 32, id='freezing point'),
+    pytest.param(100, 212, id='boiling point'),
+    pytest.param(-40, -40, id='negative forty')
 ])
 def test_celsiusToFahrenheit(celsius, expected):
-    assert celsiusToFahrenheit(celsius) == expected
+    assert calc.celsiusToFahrenheit(celsius) == expected
